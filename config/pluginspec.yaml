@@ -1,0 +1,99 @@
+pluginInfo:
+  # This is default sample specification
+  # Feel free to change it
+  # Call flowpdk showdoc pluginspec to see the list of available fields and their description
+  pluginName: 'EC-GCP-SecretManager'
+  version: '1.0.0'
+  description: 'This plugin integrates with Google Cloud Secret Manager.'
+  author: 'Polina'
+  supportUrl: 'pshubina@cloudbees.com'
+  category: 'Google Cloud'
+  shell: 'ec-groovy'
+
+# Plugin configuration description
+configuration:
+  # This is a shell used for checking connection
+  shell: 'ec-groovy'
+  # A script for checking connection will be generated
+  checkConnection: 'true'
+  # A set of fields will be added to process debug level in the configuration
+  hasDebugLevel: true
+  parameters:
+    - name: config
+      documentation: The name for the created configuration
+      required: true
+      type: entry
+      label: Configuration Name
+    - name: desc
+      documentation: Description for the configuration
+      required: false
+      type: entry
+      label: Description
+    - name: credential
+      documentation: |
+        Service account key in JSON format. For example,
+
+        {
+          "type": "service_account",
+          "project_id": "PROJECT ID",
+          "private_key_id": "PRIVATE KEY ID",
+          "private_key": "-----BEGIN PRIVATE KEY-----PRIVATE KEY CONTENT-----END PRIVATE KEY-----\n",
+          "client_email": "SERVICE ACCOUNT NAME@PROJECT ID.iam.gserviceaccount.com",
+          "client_id": "CLIENT ID",
+          "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+          "token_uri": "https://oauth2.googleapis.com/token",
+          "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+          "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ACCOUNT ID"
+        }
+
+      htmlDocumentation: |
+        Service account key in JSON format. For example,<br/>
+        <pre>
+        {
+          "type": "service_account",
+          "project_id": "PROJECT ID",
+          "private_key_id": "PRIVATE KEY ID",
+          "private_key": "-----BEGIN PRIVATE KEY-----PRIVATE KEY CONTENT-----END PRIVATE KEY-----\n",
+          "client_email": "SERVICE ACCOUNT NAME@PROJECT ID.iam.gserviceaccount.com",
+          "client_id": "CLIENT ID",
+          "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+          "token_uri": "https://oauth2.googleapis.com/token",
+          "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+          "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ACCOUNT ID"
+        }
+        </pre>
+      required: true
+      type: credential
+      credentialType: key
+      label: Credential
+
+procedures:
+  - name: Expand Credentials
+    description: This procedure reads credentials and places them into the defined file using placeholders.
+    hasConfig: true
+    parameters:
+      - name: sourceFile
+        type: entry
+        label: Source File
+        documentation: |
+          File to read patterns from.
+          The file must contain placeholders for the secrets in form "((GCP-SECRET: secret-data)),
+          where secret-data might be a json or a key-value string, e.g. name=my-secret, version=1
+      - name: source
+        label: Source
+        type: textarea
+        documentation: |
+          The template content.
+          The file must contain placeholders for the secrets in form "((GCP-SECRET: secret-data)),
+          where secret-data might be a json or a key-value string, e.g. name=my-secret, version=1
+      - name: targetFile
+        type: entry
+        label: Target File
+        required: true
+        documentation: Target file to write file with secrets to. Can be relative to the job workspace.
+      - name: overwriteTarget
+        type: checkbox
+        checkedValue: true
+        uncheckedValue: false
+        documentation: If checked and the target file exists, it will be overwritten.
+        label: Overwrite Target?
