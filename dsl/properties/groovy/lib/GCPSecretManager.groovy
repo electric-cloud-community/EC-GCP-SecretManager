@@ -82,7 +82,8 @@ class GCPSecretManager extends FlowPlugin {
             log.info "Got secret data $data"
             String value = wrapper.retrieveSecretVersion(secretData)
             count ++
-            log.info "Retrieved secret value ${'*' * value.size()}"
+            String placeholder = value.size() < 20 ? '*' * value.size() : '*********....'
+            log.info "Retrieved secret value ${placeholder}"
             return value
         }
 
