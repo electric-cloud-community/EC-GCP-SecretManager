@@ -45,7 +45,9 @@ class SecretManagerWrapper {
 
     SecretVersion latestSecretVersion(String secretName) {
         SecretName parent = SecretName.of(project, secretName)
-        List<SecretVersion> versions = client.listSecretVersions(parent).iterateAll().asList()
+        List<SecretVersion> versions = client.listSecretVersions(parent).iterateAll().findAll {
+            it.state != SecretVersion.State.DISABLED
+        }
         return versions?.sort()?.last()
     }
 

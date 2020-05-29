@@ -86,7 +86,6 @@ class GCPSecretManager extends FlowPlugin {
             log.info "Retrieved secret value ${placeholder}"
             return value
         }
-
         String fileName = p.asMap.targetFile
         assert fileName : "No file name is provided"
         File file = new File(fileName)
