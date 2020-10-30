@@ -1,0 +1,152 @@
+Plugin version 1.0.0
+
+Revised on October 30, 2020
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+== Plugin configurations
+
+Plugin configurations are sets of parameters that apply
+across some or all of the plugin procedures. They
+reduce repetition of common values, create
+predefined parameter sets for end users, and
+securely store credentials where needed. Each configuration
+is given a unique name that is entered in designated
+parameters on procedures that use them.
+
+
+=== Creating plugin configurations
+
+To create plugin configurations in CloudBees CD, do these steps:
+
+* Go to Adminstration -> Plugins to open the Plugin Manager.
+* Find the EC-GCP-SecretManager-1.0.0 row.
+* Click *Configure* to open the
+     Configurations page.
+* Click *Create Configuration* as per the description of parameters below.
+
+
+
+=== Configuration procedure parameters
+
+[cols=",",options="header",]
+|===
+|Parameter |Description
+
+|__**Configuration Name**__ | The name for the created configuration
+
+
+|Description | Description for the configuration
+
+
+|__**Credential**__ | Service account key in JSON format. For example,
+
+
+
+
+{
+  "type": "service_account",
+  "project_id": "PROJECT ID",
+  "private_key_id": "PRIVATE KEY ID",
+  "private_key": "-----BEGIN PRIVATE KEY-----PRIVATE KEY CONTENT-----END PRIVATE KEY-----\n",
+  "client_email": "SERVICE ACCOUNT NAME@PROJECT ID.iam.gserviceaccount.com",
+  "client_id": "CLIENT ID",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ACCOUNT ID"
+}
+
+
+
+|Check Connection? | If checked, the connection endpoint and credentials entered as part of the configuration will be tested. If this option is checked, configuration will not be saved if the test fails.
+
+
+|Debug Level | This option sets debug level for logs. If info is selected, only summary information will be shown, for debug, there will be some debug information and for trace the whole requests and responses will be shown.
+
+
+|===
+
+
+
+
+
+[[procedures]]
+== Plugin procedures
+
+
+
+
+[[ExpandCredentials]]
+=== Expand Credentials
+
+
+This procedure reads credentials and places them into the defined file using placeholders.
+
+
+
+==== Expand Credentials parameters
+[cols=",",options="header",]
+|===
+|Parameter |Description
+
+| __**Configuration Name**__ | Previously defined configuration for the plugin
+
+
+| Source File | File to read patterns from.
+The file must contain placeholders for the secrets in form "((GCP-SECRET: secret-data)),
+where secret-data might be a json or a key-value string, e.g. name=my-secret, version=1
+
+
+
+| Source | The template content.
+The file must contain placeholders for the secrets in form "((GCP-SECRET: secret-data)),
+where secret-data might be a json or a key-value string, e.g. name=my-secret, version=1
+
+
+
+| __**Target File**__ | Target file to write file with secrets to. Can be relative to the job workspace.
+
+
+| Overwrite Target? | If checked and the target file exists, it will be overwritten.
+
+
+|===
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[[rns]]
+== Release notes
+
+
+=== EC-GCP-SecretManager 1.0.0
+
+- Introduced the EC-GCP-SecretManager plugin.
+
+
