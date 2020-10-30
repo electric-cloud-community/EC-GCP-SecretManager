@@ -9,6 +9,7 @@ pluginInfo:
   supportUrl: 'pshubina@cloudbees.com'
   category: 'Google Cloud'
   shell: 'ec-groovy'
+  repositoryUrl: https://github.com/electric-cloud-community/EC-GCP-SecretManager
 
 # Plugin configuration description
 configuration:
