@@ -10,6 +10,9 @@ pluginInfo:
   category: 'Google Cloud'
   shell: 'ec-groovy'
   repositoryUrl: https://github.com/electric-cloud-community/EC-GCP-SecretManager
+  catalogLabel: ec-gcp-secretmanager
+  detailedDescription: |
+    Plugin deploys secrets from the GCP Secret Manager to a file on resource.
 
 # Plugin configuration description
 configuration:
