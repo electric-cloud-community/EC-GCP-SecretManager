@@ -1,2 +1,5 @@
+1.0.1:
+  - Ignoring Destroyed secret versions
+
 1.0.0:
   - Introduced the EC-GCP-SecretManager plugin.

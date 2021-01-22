@@ -3,7 +3,7 @@ pluginInfo:
   # Feel free to change it
   # Call flowpdk showdoc pluginspec to see the list of available fields and their description
   pluginName: 'EC-GCP-SecretManager'
-  version: '1.0.0'
+  version: '1.0.1'
   description: 'This plugin integrates with Google Cloud Secret Manager.'
   author: 'Polina'
   supportUrl: 'pshubina@cloudbees.com'
